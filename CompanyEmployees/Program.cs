@@ -7,7 +7,7 @@ using NLog;
 var builder = WebApplication.CreateBuilder(args);
 
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),
-$"/nlog.Development.config"));
+$"/nlog.{builder.Environment.EnvironmentName}.config"));
 
 // Add services to the container.
 builder.Services.ConfigureCors();
