@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{10853DB8-06D1-4880-9A57-CFCFAC3B018B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Contracts", "Service.Contracts\Service.Contracts.csproj", "{19CD586D-D4A1-4F8B-B53F-7AA1E71A52AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Contracts", "Service.Contracts\Service.Contracts.csproj", "{19CD586D-D4A1-4F8B-B53F-7AA1E71A52AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{F7784BB8-99C4-4B9C-AE79-72E287F6E4B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{F7784BB8-99C4-4B9C-AE79-72E287F6E4B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyEmployees.Presentation", "CompanyEmployees.Presentation\CompanyEmployees.Presentation.csproj", "{6B0A031A-76CC-43DA-A1EA-8B341E188306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{1EBE83E1-51D8-4217-B39E-055BD9683203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{F7784BB8-99C4-4B9C-AE79-72E287F6E4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7784BB8-99C4-4B9C-AE79-72E287F6E4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7784BB8-99C4-4B9C-AE79-72E287F6E4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0A031A-76CC-43DA-A1EA-8B341E188306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0A031A-76CC-43DA-A1EA-8B341E188306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0A031A-76CC-43DA-A1EA-8B341E188306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0A031A-76CC-43DA-A1EA-8B341E188306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBE83E1-51D8-4217-B39E-055BD9683203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBE83E1-51D8-4217-B39E-055BD9683203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBE83E1-51D8-4217-B39E-055BD9683203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBE83E1-51D8-4217-B39E-055BD9683203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
