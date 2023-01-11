@@ -13,5 +13,11 @@ namespace Repository
         public CompanyRepository(RepositoryContext context) : base(context) { }
 
         public IEnumerable<Company> GetAllCompanies(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
+        public Company GetCompany(Guid companyId, bool trackChanges)
+        {
+#pragma warning disable CS8603 // Possible null reference return.
+            return FindByCondition(c => c.Id.Equals(companyId), trackChanges).SingleOrDefault();
+#pragma warning restore CS8603 // Possible null reference return.
+        }
     }
 }
