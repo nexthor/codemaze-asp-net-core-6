@@ -19,5 +19,7 @@ namespace Repository
             return FindByCondition(c => c.Id.Equals(companyId), trackChanges).SingleOrDefault();
 #pragma warning restore CS8603 // Possible null reference return.
         }
+
+        public void CreateCompany(Company company) => Create(company);
     }
 }
