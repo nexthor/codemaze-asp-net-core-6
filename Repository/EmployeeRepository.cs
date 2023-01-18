@@ -27,5 +27,7 @@ namespace Repository
             employee.CompanyId = companyId;
             Create(employee);
         }
+
+        public void DeleteEmployeeForCompany(Employee employee) => Delete(employee);
     }
 }
