@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using CompanyEmployees.Api.Extensions;
 using CompanyEmployees.Extensions;
 using CompanyEmployees.Helpers;
@@ -31,6 +32,17 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     // API controllers
     options.SuppressModelStateInvalidFilter = true;
 });
+
+builder.Services.AddMemoryCache();
+
+builder.Services.ConfigureRateLimitingOptions();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication();
+
+builder.Services.ConfigureIdentity();
+
 builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader= true;
@@ -54,12 +66,16 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseIpRateLimiting();
+
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
 });
 
 app.UseCors(Constants.CorsPolicy);
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
