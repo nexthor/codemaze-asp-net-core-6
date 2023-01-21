@@ -1,4 +1,5 @@
 ﻿using CompanyEmployees.Presentation.ModelBinders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -22,6 +23,7 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCompaniesAsync()
         {
             var companies = await _services.CompanyService.GetAllCompaniesAsync(false);
