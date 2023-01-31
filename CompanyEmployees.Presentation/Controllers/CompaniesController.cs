@@ -1,12 +1,15 @@
 ﻿using CompanyEmployees.Presentation.ModelBinders;
+using Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.RequestParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CompanyEmployees.Presentation.Controllers
@@ -24,11 +27,13 @@ namespace CompanyEmployees.Presentation.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> GetCompaniesAsync()
+        public async Task<IActionResult> GetCompaniesAsync([FromQuery] CompanyParameters companyParameters)
         {
-            var companies = await _services.CompanyService.GetAllCompaniesAsync(false);
+            var companies = await _services.CompanyService.GetAllCompaniesAsync(companyParameters, false);
 
-            return Ok(companies);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(companies.metaData));
+
+            return Ok(companies.companies);
         }
 
         [HttpGet("{id:guid}", Name = "CompanyById")]
