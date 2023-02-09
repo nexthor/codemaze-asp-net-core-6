@@ -2,6 +2,7 @@
 using Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using Shared.RequestParameters;
@@ -26,7 +27,7 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCompaniesAsync([FromQuery] CompanyParameters companyParameters)
         {
             var companies = await _services.CompanyService.GetAllCompaniesAsync(companyParameters, false);
@@ -77,6 +78,40 @@ namespace CompanyEmployees.Presentation.Controllers
             await _services.CompanyService.DeleteCompanyAsync(id, false);
 
             return NoContent();
+        }
+
+        [HttpPost("{id:guid}/upload")]
+        public async Task<IActionResult> UploadCompanyLogoAsync(Guid id)
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("StaticFiles", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)
+                                    .FileName.Trim();
+                    var fullPath = Path.Combine(pathToSave, fileName.ToString());
+                    var dbPath = Path.Combine(folderName, fileName.ToString());
+                    
+                    using(var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    return Ok(dbPath);
+                }
+                else
+                {
+                    return BadRequest("no file selected");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
