@@ -12,5 +12,6 @@ namespace Service.Contracts
         Task<IEnumerable<CompanyDto>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges);
         Task<(IEnumerable<CompanyDto> companies, string ids)> CreateCompanyCollectionAsync(IEnumerable<CompanyForCreationDto> companyCollection);
         Task DeleteCompanyAsync(Guid companyId, bool trackChanges);
+        Task UpdateCompanyAsync(Guid companyId, CompanyForUpdateDto dto, bool trackChanges);
     }
 }

@@ -20,6 +20,8 @@ namespace CompanyEmployees.Api.Profiles
             CreateMap<EmployeeForUpdateDto, Employee>();
 
             CreateMap<UserForRegistrationDto, User>();
+
+            CreateMap<CompanyForUpdateDto, Company>();
         }
     }
 }

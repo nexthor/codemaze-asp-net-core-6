@@ -92,5 +92,16 @@ namespace Service
             _repository.Company.DeleteCompany(company);
             await _repository.SaveAsync();
         }
+
+        public async Task UpdateCompanyAsync(Guid companyId, CompanyForUpdateDto dto, bool trackChanges)
+        {
+            var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges);
+            if (company is null)
+                throw new CompanyNotFoundException(companyId);
+
+            _mapper.Map(dto, company);
+
+            await _repository.SaveAsync();
+        }
     }
 }

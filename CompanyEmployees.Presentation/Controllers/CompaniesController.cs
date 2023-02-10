@@ -56,6 +56,17 @@ namespace CompanyEmployees.Presentation.Controllers
             return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, createdCompany);
         }
 
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateCompanyAsync(Guid id, [FromBody] CompanyForUpdateDto company)
+        {
+            if (company is null)
+                return BadRequest("CompanyForCreationDto object is null");
+
+            await _services.CompanyService.UpdateCompanyAsync(id, company, true);
+
+            return NoContent();
+        }
+
         [HttpGet("collection/({ids})", Name = "CompanyCollection")]
         public async Task<IActionResult> GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {
