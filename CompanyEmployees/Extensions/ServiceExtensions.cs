@@ -87,7 +87,7 @@ namespace CompanyEmployees.Extensions
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings["secretKey"];
+            var secretKey = jwtSettings["securityKey"];
 
             services.AddAuthentication(opt =>
             {

@@ -27,7 +27,7 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetCompaniesAsync([FromQuery] CompanyParameters companyParameters)
         {
             var companies = await _services.CompanyService.GetAllCompaniesAsync(companyParameters, false);

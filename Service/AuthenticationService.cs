@@ -63,7 +63,7 @@ namespace Service
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             var refreshToken = GenerateRefreshToken();
 
-            _user.RefreshToken = refreshToken;
+            _user!.RefreshToken = refreshToken;
 
             if (populateexp)
                 _user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
@@ -91,9 +91,8 @@ namespace Service
         #region private methods
         private SigningCredentials GetSigningCredentials()
         {
-#pragma warning disable CS8604 // Possible null reference argument.
-            var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"));
-#pragma warning restore CS8604 // Possible null reference argument.
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var key = Encoding.UTF8.GetBytes(jwtSettings["securityKey"]);
             var secret = new SymmetricSecurityKey(key);
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
@@ -101,12 +100,10 @@ namespace Service
 
         private async Task<List<Claim>> GetClaims()
         {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName)
+                new Claim(ClaimTypes.Name, _user!.UserName)
             };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             var roles = await _userManager.GetRolesAsync(_user);
             foreach (var role in roles)
                 claims.Add(new Claim(ClaimTypes.Role, role));
@@ -146,7 +143,7 @@ namespace Service
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"))),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"])),
                 ValidateLifetime = true,
                 ValidIssuer = jwtSettings["validIssuer"],
                 ValidAudience = jwtSettings["validAudience"]
