@@ -26,12 +26,14 @@ namespace CompanyEmployees.Presentation.Controllers
 
             if (!result.Succeeded)
             {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.TryAddModelError(error.Code, error.Description);
-                }
+                var errors = result.Errors.Select(error => error.Description).ToList();
+                
 
-                return BadRequest(ModelState);
+                return BadRequest(new UserRegistrationResponseDto
+                {
+                    Errors = errors,
+                    IsSuccessfulRegistration = false
+                });
             }
 
             return StatusCode(201);
